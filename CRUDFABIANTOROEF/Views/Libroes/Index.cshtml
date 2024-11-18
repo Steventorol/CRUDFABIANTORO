@@ -1,0 +1,155 @@
+﻿@model IEnumerable<CRUDFABIANTOROEF.Models.Libro>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="text-center my-4">
+    <h2 class="display-5">Nuestros Libros </h2>
+</div>
+
+<style>
+
+
+    .botonCopiar {
+        background-color: #5499c7;
+    }
+
+    .botonCsv {
+        background-color: #48c9b0;
+    }
+
+    .botonExcel {
+        background-color: #45b39d;
+    }
+
+    .botonPdf {
+        background-color: #27ae60;
+    }
+
+    .botonPrint {
+        background-color: #4d79ff;
+    }
+
+    .botonColvis {
+        background-color: #2ecc71;
+    }
+
+</style>
+<p>
+    <a class="btn btn-primary" asp-action="Create">Crear Nuevo</a>
+</p>
+
+<table class="table table-striped table-hover" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreAutor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaRegistro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoCategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NitEditorial)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreAutor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publicacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoCategoriaNavigation.CodigoCategoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NitEditorialNavigation.Nit)
+            </td>
+            <td>
+                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Isbn"><i class="fi fi-ss-pencil"></i></a> |
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Isbn"><i class="fi fi-ss-attention-detail"></i></a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Isbn"><i class="fi fi-ss-trash"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script>
+    new DataTable('#example', {
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: '<i class="fi fi-ss-duplicate"></i>',
+                        className: 'botonCopiar btn'
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="fi fi-ss-file-csv"></i>',
+                        className: 'botonCsv btn'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fi fi-ss-file-excel"></i> ',
+                        className: 'botonExcel btn'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fi fi-ss-file-pdf"></i>',
+                        className: 'botonPdf btn'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fi fi-ss-print"></i>',
+                        className: 'botonPrint btn'
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="fi fi-ss-filter-list"></i>',
+                        className: 'botonColvis btn'
+                    }
+
+                ]
+
+            }
+
+        },
+        language: {
+            url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+        },
+        scrollX: true,
+        initComplete: function (json, settings) {
+            $(".dt-buttons").removeClass("dt-buttons");
+            //agregar clase para añadir estilos
+            $(".dt-button").addClass("botones");
+            //Elimina la clase de los estilos por defecto de tadatables
+            $(".dt-button").addClass("botones");
+        }
+    });
+</script>

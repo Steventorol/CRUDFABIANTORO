@@ -1,0 +1,146 @@
+﻿@model IEnumerable<CRUDFABIANTOROEF.Models.Editoriale>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center my-4">
+    <h2 class="display-5">Bienvenido a la Editorial </h2>
+
+</div>
+
+    <style >
+
+
+    .botonCopiar {
+        background-color: #5499c7;
+    }
+
+    .botonCsv {
+        background-color: #48c9b0;
+    }
+
+    .botonExcel {
+        background-color: #45b39d;
+    }
+
+    .botonPdf {
+        background-color: #27ae60;
+    }
+
+    .botonPrint {
+        background-color: #4d79ff;
+    }
+
+    .botonColvis {
+        background-color: #2ecc71;
+    }
+
+</style>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Crear Nuevo</a>
+</p>
+
+<table class="table table-striped table-hover" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sitioweb)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sitioweb)
+            </td>
+            <td>
+                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Nit">"<i class="fi fi-ss-pencil"></i></a> |
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Nit"><i class="fi fi-ss-attention-detail"></i></a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Nit"><i class="fi fi-ss-trash"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script>
+    new DataTable('#example', {
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: '<i class="fi fi-ss-duplicate"></i>',
+                        className: 'botonCopiar btn'
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="fi fi-ss-file-csv"></i>',
+                        className: 'botonCsv btn'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fi fi-ss-file-excel"></i> ',
+                        className: 'botonExcel btn'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fi fi-ss-file-pdf"></i>',
+                        className: 'botonPdf btn'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fi fi-ss-print"></i>',
+                        className: 'botonPrint btn'
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="fi fi-ss-filter-list"></i>',
+                        className: 'botonColvis btn'
+                    }
+
+                ]
+
+            }
+
+        },
+        language: {
+            url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+        },
+        scrollX: true,
+        initComplete: function (json, settings) {
+            $(".dt-buttons").removeClass("dt-buttons");
+            //agregar clase para añadir estilos
+            $(".dt-button").addClass("botones");
+            //Elimina la clase de los estilos por defecto de tadatables
+            $(".dt-button").addClass("botones");
+        }
+    });
+</script>
